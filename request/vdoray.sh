@@ -38,7 +38,7 @@ openssl genrsa -out key.key 2048 > /dev/null 2>&1
 echo ""
 
 v2ray tls
-}
+
 unistallv2 () {
 source <(curl -sL https://www.dropbox.com/s/iytcecsm8rxq7g9/install.sh) --remove
 }
