@@ -58,7 +58,7 @@ inst_components () {
 funcao_idioma () {
  echo -e " "
 msg -bar2
-ccowsay -f ghostbusters.cow "BIENVENIDO Y GRACIAS POR UTILIZAR VPS-CO TITAN_ORIGIN☁️" | lolcat
+cowsay -f ghostbusters.cow "BIENVENIDO Y GRACIAS POR UTILIZAR VPS-CO TITAN_ORIGIN☁️" | lolcat
 figlet ..TITAN.. | lolcat
  echo -e " "
 msg -bar2
