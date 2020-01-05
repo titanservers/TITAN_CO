@@ -15,7 +15,7 @@ SCPfrm="/etc/ger-frm"
 SCPfrm3="/etc/adm-lite"
 SCPinst="/etc/ger-inst"
 rm $HOME/Dankelthaher.sh
-SCPresq="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RhbmtlbHRoYWhlck1hbmFnZXIvQURNLU1BTkFHRVItREFOS0VMVEhBSEVSL21hc3Rlci9yZXF1ZXN0"
+SCPresq="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3RpdGFuc2VydmVycy9USVRBTl9DTy9tYXN0ZXIvcmVxdWVzdA=="
 SUB_DOM='base64 -d'
 [[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
@@ -58,8 +58,8 @@ inst_components () {
 funcao_idioma () {
  echo -e " "
 msg -bar2
-cowsay -f eyes "BIENVENIDO Y GRACIAS POR UTILIZAR NEW-ADM OFICIAL BY DANKELTHAHER" | lolcat
-figlet ..dankelthaher.. | lolcat
+ccowsay -f ghostbusters.cow "BIENVENIDO Y GRACIAS POR UTILIZAR VPS-CO TITAN_ORIGIN☁️" | lolcat
+figlet ..TITAN.. | lolcat
  echo -e " "
 msg -bar2
 echo -e "\e[1;33mSelecione Un Idioma\e[0m"
@@ -170,7 +170,7 @@ mv -f ${SCPinstal}/$1 ${ARQ}/$1
 chmod +x ${ARQ}/$1
 }
 fun_ip
-wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
+wget -O /usr/bin/trans https://raw.githubusercontent.com/titanservers/vpsco/master/Install/trans &> /dev/null
 msg -bar2
 msg -ama "[ NEW - ULTIMATE - SCRIPT ] ➣ \033[1;33m[\033[1;34m OFICIAL BY-DANKELTHAHER \033[1;33m]"
 [[ $1 = "" ]] && funcao_idioma || {
