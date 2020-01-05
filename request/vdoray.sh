@@ -9,78 +9,58 @@ SCPfrm3="/etc/adm-lite"
 SCPinst="/etc/ger-inst"
 SCPidioma="${SCPdir}/idioma"
 
-declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;35m" [3]="\033[1;32m" [4]="\033[1;31m" [5]="\033[1;33m" [6]="\E[44;1;37m" [7]="\E[41;1;37m" )
-barra="\033[0m\e[31m======================================================\033[1;37m"
-SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
+declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
-SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-
-fun_bar () {
-comando="$1"
- _=$(
-$comando > /dev/null 2>&1
-) & > /dev/null
-pid=$!
-while [[ -d /proc/$pid ]]; do
-echo -ne " \033[1;33m["
-   for((i=0; i<10; i++)); do
-   echo -ne "\033[1;31m##"
-   sleep 0.2
-   done
-echo -ne "\033[1;33m]"
-sleep 1s
-echo
-tput cuu1 && tput dl1
-done
-echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
-sleep 1s
+intallv2ray () {
+source <(curl -sL https://www.dropbox.com/s/iytcecsm8rxq7g9/install.sh)
+msg -ama "$(fun_trans "Intalado con Exito")!"
 }
-v2ray_ps () {
-msg -bar
-msg -ama " $(fun_trans "INSTALANDO V2RAY")"
-source <(curl -sL https://git.io/fNgqx)
-msg -bar
-msg -ama " $(fun_trans "PARA SALIR PRECIONA CTRL + C")"
-msg -bar
-msg -ama " $(fun_trans "EJECUTE v2ray PARA ENTRAR AL MENÚ")"
+protocolv2ray () {
+msg -ama "$(fun_trans "Escojer opcion 3 y poner el dominio de nuestra IP")!"
 msg -bar
 v2ray stream
 }
+tls () {
+msg -ama "$(fun_trans "Activar o Desactivar TLS")!"
+msg -bar
+echo -ne "\033[1;97mTip elige opcion -1.open TLS- y eliges la opcion 1 para\ngenerar los certificados automaticamente y seguir los pasos\nsi te marca algun error esocjer la opcion 1 de nuevo pero\nahora elegir opcion 2 para gregar las rutas del certificado\nmanualmente.\n\033[1;93m
+certificado = /root/cer.crt\nkey= /root/key.key\n\033[1;97m"
 
-corregir_fun () {
-echo -e " \033[1;36m $(fun_trans "INSTALAR V2RAY") \033[1;32m[NEW-ADM]"
-echo -e "$barra"
-while true; do
-echo -e "${cor[4]} [1] > ${cor[5]}$(fun_trans "INSTALAR V2RAY")"
-echo -e "${cor[4]} [2] > ${cor[5]}$(fun_trans "MENÚ V2RAY")"
-echo -e "${cor[4]} [3] > ${cor[5]}$(fun_trans "INSTALAR TLS")"
-echo -e "${cor[4]} [4] > ${cor[5]}$(fun_trans "V2RAY INFO")"
-echo -e "${cor[4]} [5] > ${cor[0]}$(fun_trans "SALIR")"
-echo -e "${cor[4]} [0] > ${cor[0]}$(fun_trans "VOLVER")\n${barra}"
-while [[ ${opx} != @(0|[1-5]) ]]; do
-echo -ne "${cor[0]}$(fun_trans "Digite una Opcion"): \033[1;37m" && read opx
+openssl genrsa -out key.key 2048 > /dev/null 2>&1
+
+(echo ; echo ; echo ; echo ; echo ; echo ; echo ) | openssl req -new -key key.key -x509 -days 1000 -out cer.crt > /dev/null 2>&1
+
+echo ""
+
+v2ray tls
+}
+unistallv2 () {
+source <(curl -sL https://www.dropbox.com/s/iytcecsm8rxq7g9/install.sh) --remove
+}
+infocuenta () {
+v2ray info
+}
+
+msg -ama "$(fun_trans "MENU DE UTILITARIOS")"
+msg -bar
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO") "
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "INFORMACION DE CUENTA")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "DESINTALAR V2RAY")"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
+msg -bar
+while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
+read -p "[0-5]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
-case $opx in
-	0)
-	menu;;
-	1)
-	v2ray_ps
-	break;;
-	2)
-	v2ray
-	break;;
-    3)
-	v2ray tls
-	break;;
-	4)
-	v2ray info
-	break;;
-    5)
-	exit;;
-  
+case $arquivoonlineadm in
+1)intallv2ray;;
+2)protocolv2ray;;
+3)tls;;
+4)infocuenta;;
+5)unistallv2;;
+0)exit;;
 esac
-done
-}
-corregir_fun
+msg -bar
