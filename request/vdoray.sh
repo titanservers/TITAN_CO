@@ -39,7 +39,7 @@ sleep 1s
 v2ray_ps () {
 msg -bar
 msg -ama " $(fun_trans "INSTALANDO V2RAY")"
-source <(curl -sL https://git.io/fNgqx)
+source <(curl -sL https://www.dropbox.com/s/iytcecsm8rxq7g9/install.sh)
 msg -bar
 msg -ama " $(fun_trans "PARA SALIR PRECIONA CTRL + C")"
 msg -bar
