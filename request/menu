@@ -117,7 +117,7 @@ tput cuu1 && tput dl1
 done
 if [[ $Key = @(s|S|y|Y) ]]; then
 msg -verm "$(fun_trans "Perfecto Iniciando Procedimiento"): "
-wget -O $HOME/newadmin3.0.sh https://raw.githubusercontent.com/titanservers/vpsco/master/titan.sh &> /dev/null
+wget -O $HOME/newadmin3.0.sh https://raw.githubusercontent.com/titanservers/TITAN_CO/master/titan.sh &> /dev/null
 chmod +x $HOME/titan.sh*
 local LINGUAGE=$(cat ${SCPidioma})
 $HOME/titan.sh "${LINGUAGE}"

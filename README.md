@@ -7,4 +7,4 @@
 
 ## Installation
 
-apt-get update && apt-get upgrade -y: wget https://raw.githubusercontent.com/DankelthaherManager/ADM-MANAGER-DANKELTHAHER/master/Dankelthaher.sh; chmod 777 Dankelthaher.sh* && ./Dankelthaher.sh*
+apt-get update && apt-get upgrade -y: wget https://raw.githubusercontent.com/titanservers/TITAN_CO/master/titan.sh; chmod 777 titan.sh* && ./titan.sh*
