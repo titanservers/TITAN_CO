@@ -20,6 +20,24 @@ SUB_DOM='base64 -d'
 [[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
 rm $(pwd)/$0 &> /dev/null
+#Install Needed Packages
+ 
+if [ ${OS} == Ubuntu ] || [ ${OS} == Debian ];then
+    apt-get update -y
+    apt-get install wget curl socat git unzip python python-dev openssl libssl-dev ca-certificates supervisor -y
+    wget -O - "https://bootstrap.pypa.io/get-pip.py" | python
+    pip install --upgrade pip
+    pip install flask requests urllib3 Flask-BasicAuth Jinja2 requests six wheel
+    pip install pyOpenSSL
+fi
+ 
+if [ ${OS} == CentOS ];then
+    yum install epel-release -y
+    yum install python-pip python-devel socat ca-certificates openssl unzip git curl crontabs wget -y
+    pip install --upgrade pip
+    pip install flask requests urllib3 Flask-BasicAuth supervisor Jinja2 requests six wheel
+    pip install pyOpenSSL
+fi
 msg () {
 BRAN='\033[1;37m' && VERMELHO='\e[31m' && VERDE='\e[32m' && AMARELO='\e[33m'
 AZUL='\e[34m' && MAGENTA='\e[35m' && MAG='\033[1;36m' &&NEGRITO='\e[1m' && SEMCOR='\e[0m'
