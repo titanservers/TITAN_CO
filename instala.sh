@@ -90,7 +90,7 @@ sudo chmod +x /bin/port5050
 echo "sudo port5050 &&  sudo notfy ||" >> /etc/rc.local
 echo "sleep 5s" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
-wget https://www.dropbox.com/s/ijksm4s7ktqwzid/notfy.sh -O /bin/notfy &> /dev/null
+wget https://raw.githubusercontent.com/titanservers/vpsco/master/Install/notfy.sh -O /bin/notfy &> /dev/null
 chmod +rwx /bin/notfy	
 sleep 10
 }
@@ -187,7 +187,7 @@ echo -e "\033[1;34mSE ENVIO MENSAJE DE PRUEBA SI NO LLEGA CONTACTE A telegram @t
 }
 fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/titanservers/vpsco/master/Install/trans &> /dev/null
-wget https://www.dropbox.com/s/utn0hlpurjbbstp/nombre.log &> /dev/null
+wget https://raw.githubusercontent.com/titanservers/vpsco/master/Install/nombre.log &> /dev/null
 msg -bar2
 msg -ama "[ NEW - ULTIMATE - SCRIPT ] ➣ \033[1;33m[\033[1;34m TITAN_ORIGIN \033[1;33m]"
 [[ $1 = "" ]] && funcao_idioma || {
