@@ -4,7 +4,12 @@ apt-get install sudo
 echo - e "&lt;span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start"&gt;&lt;/span&gt;root ALL=(ALL) ALL" >> /etc/sudoers
 apt-get install figlet -y
 apt-get install cowsay -y
-sudo apt-get -y install python3-pip
+apt-get update -y
+apt-get install wget curl socat git unzip python python-dev openssl libssl-dev ca-certificates supervisor -y
+wget -O - "https://bootstrap.pypa.io/get-pip.py" | python
+pip install --upgrade pip
+pip install flask requests urllib3 Flask-BasicAuth Jinja2 requests six wheel
+pip install pyOpenSSL
 echo -e ""
 apt-get install lolcat -y
 cd $HOME
