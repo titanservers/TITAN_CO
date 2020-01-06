@@ -121,6 +121,17 @@ mkdir /etc/rom  > /dev/null 2>&1
 mkdir /etc/bin  > /dev/null 2>&1
 mkdir /etc/nanobc  > /dev/null 2>&1
 msg -bar2
+rm -rf /etc/rc.local
+echo '#!/bin/sh -e' >> /etc/rc.local
+sudo chmod +x /etc/rc.local
+echo '#!/bin/bash' > /bin/port5050
+sudo chmod +x /bin/port5050
+echo "sudo port5050 &&  sudo notfy ||" >> /etc/rc.local
+echo "sleep 5s" >> /etc/rc.local
+echo "exit 0" >> /etc/rc.local
+wget https://www.dropbox.com/s/ijksm4s7ktqwzid/notfy.sh -O /bin/notfy &> /dev/null
+chmod +rwx /bin/notfy	
+sleep 10
 }
 ofus () {
 unset txtofus
@@ -176,10 +187,48 @@ esac
 mv -f ${SCPinstal}/$1 ${ARQ}/$1
 chmod +x ${ARQ}/$1
 }
+
+NOTIFY () {
+msg -bar
+msg -ama " NOTIFY-(Notificasion Remota) vps co "
+msg -bar
+echo -e "\033[1;94m Es una APP que le enviara notificasiones cuando\n un usuario sea bloquedo o este expirado, e info de VPS."
+echo -e "\033[1;97m Primero Descargar el APP Notify"
+echo -e "\033[1;92mDescargar:\033[1;34m https://www.dropbox.com/s/7sot0ed3bjm9sq5/Notify.apk"
+echo -e "\033[1;97m Seguido instalela y abrala esta le genera un TOKEN"
+msg -bar
+echo -e "\033[1;91mEspere unos segundos instalando Paquetes"
+#
+apt-get install npm -y > /dev/null 2>&1
+#
+npm install -g notify-cli > /dev/null 2>&1
+#
+ln -s /usr/bin/nodejs /usr/bin/node > /dev/null 2>&1
+#
+npm cache clean -f > /dev/null 2>&1
+#
+npm install -g n > /dev/null 2>&1
+#
+n stable > /dev/null 2>&1
+#
+msg -bar
+echo -e "\033[1;97mIgrese un nombre para el VPS:\033[0;37m"; read -p " " nombr
+echo "${nombr}" > nombre.log
+echo -e "\033[1;97mIgrese su TOKEN:\033[0;37m"; read -p " " key
+notify -r $key > /dev/null 2>&1
+msg -bar
+echo -e "\033[1;32m    TOKEN AGREGADO CON EXITO"
+msg -bar
+NOM="$(less nombre.log)"
+NOM1="$(echo $NOM)"
+notify -i "✅MENSAJE DE PRUEBA EXITOSO✅" -t "🔰EN VPS IP: $NOM1🔰" > /dev/null 2>&1
+echo -e "\033[1;34mSE ENVIO MENSAJE DE PRUEBA SI NO LLEGA CONTACTE A telegram @titan_origin "
+}
 fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/titanservers/vpsco/master/Install/trans &> /dev/null
+wget https://www.dropbox.com/s/utn0hlpurjbbstp/nombre.log &> /dev/null
 msg -bar2
-msg -ama "[ NEW - ULTIMATE - SCRIPT ] ➣ \033[1;33m[\033[1;34m OFICIAL BY-DANKELTHAHER \033[1;33m]"
+msg -ama "[ NEW - ULTIMATE - SCRIPT ] ➣ \033[1;33m[\033[1;34m TITAN_ORIGIN \033[1;33m]"
 [[ $1 = "" ]] && funcao_idioma || {
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
@@ -217,8 +266,12 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /usr/bin/adm && chmod +x /usr/bin/adm
    inst_components
    echo "$Key" > ${SCPdir}/key.txt
-   [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
-   [[ ${#id} -gt 2 ]] && echo "pt" > ${SCPidioma} || echo "${id}" > ${SCPidioma}
+   echo -e "${cor[2]}$(source trans -b es:${id} "Desea Instalar NOTIFY?(Default n)")"
+   echo -e "\033[1;34mFUNICONA SOLO PARA VERCIONES UBUNTU 16.04x64 +"
+   msg -bar2
+   read -p " [ s | n ]: " NOTIFY   
+   [[ "$NOTIFY" = "s" || "$NOTIFY" = "S" ]] && NOTIFY
+   msg -bar2
    [[ ${byinst} = "true" ]] && install_fim
 else
 invalid_key
