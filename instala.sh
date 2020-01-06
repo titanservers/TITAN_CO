@@ -67,55 +67,16 @@ funcao_idioma () {
 msg -bar2
 cowsay -f ghostbusters.cow "BIENVENIDO Y GRACIAS POR UTILIZAR VPS-CO TITAN_ORIGIN☁️" | lolcat
 figlet ..TITAN.. | lolcat
- echo -e " "
+ echo -e "     ESTE SCRIPT ESTA OPTIMIZADO A IDIOMA ESPAÑOL"
 msg -bar2
-echo -e "\e[1;33mSelecione Un Idioma\e[0m"
-msg -bar2
-declare -A idioma=( [1]="en \e[0;37mIngles \e[0m "  [2]="fr \e[0;37mFrances \e[0m "  [3]="de \e[0;37mAleman \e[0m "  [4]="it \e[0;37mItaliano \e[0m "  [5]="pl \e[0;37mPolaco \e[0m "  [6]="pt \e[0;37mPortugues \e[0m "  [7]="es \e[0;37mEspanol \e[0m "  [8]="tr \e[0;37mTurko \e[0m " )
-for ((i=1; i<=12; i++)); do
-valor1="$(echo ${idioma[$i]}|cut -d' ' -f2)"
-[[ -z $valor1 ]] && break
-valor1="\033[1;32m[$i] > \033[1;33m$valor1"
-    while [[ ${#valor1} -lt 37 ]]; do
-       valor1=$valor1" "
-    done
-echo -ne "$valor1"
-let i++
-valor2="$(echo ${idioma[$i]}|cut -d' ' -f2)"
-[[ -z $valor2 ]] && {
-   echo -e " "
-   break
-   }
-valor2="\033[1;32m[$i] > \033[1;33m$valor2"
-     while [[ ${#valor2} -lt 37 ]]; do
-        valor2=$valor2" "
-     done
-echo -ne "$valor2"
-let i++
-valor3="$(echo ${idioma[$i]}|cut -d' ' -f2)"
-[[ -z $valor3 ]] && {
-   echo -e " "
-   break
-   }
-valor3="\033[1;32m[$i] > \033[1;33m$valor3"
-     while [[ ${#valor3} -lt 37 ]]; do
-        valor3=$valor3" "
-     done
-echo -e "$valor3"
-done
-msg -bar2
-unset selection
-while [[ ${selection} != @([1-8]) ]]; do
-echo -ne "\033[1;37mSELECIONE: " && read selection
-tput cuu1 && tput dl1
-done
-pv="$(echo ${idioma[$selection]}|cut -d' ' -f1)"
-[[ ${#id} -gt 2 ]] && id="pt" || id="$pv"
+pv="$(echo es)"
+[[ ${#id} -gt 2 ]] && id="es" || id="$pv"
 byinst="true"
 }
 install_fim () {
-msg -ama "$(source trans -b es:${id} "Instalación completa, utilice los comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
-echo -e " menu / adm" && msg -verm "$(source trans -b pt:${id} "Reinicie su servidor para completar la instalación"|sed -e 's/[^a-z -]//ig')"
+msg -ama "$(source trans -b es:${id} "Instalacion Completa, Utilize los Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
+echo -e " menu / adm" && msg -verm "$(source trans -b es:${id} "En seguida se reiniciara su VPS "|sed -e 's/[^a-z -]//ig')"
+echo -e "   \033[1;41m   $(source trans -b es:${id} "INICIE SESION CUANDO SE CIERRE ESTA TERMINAL")   \033[0;37m"
 mkdir /etc/crondbl  > /dev/null 2>&1 
 mkdir /etc/rom  > /dev/null 2>&1
 mkdir /etc/bin  > /dev/null 2>&1
